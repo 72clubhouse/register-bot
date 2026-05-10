@@ -1,0 +1,11 @@
+{
+  "name": "register-bot",
+  "version": "1.0.0",
+  "main": "register_bot.js",
+  "scripts": {
+    "start": "node register_bot.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.0"
+  }
+}
