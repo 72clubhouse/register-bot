@@ -32,6 +32,14 @@ const MSG = {
   done: '\u2705 <b>\u0e25\u0e07\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08\u0e41\u0e25\u0e49\u0e27! / Registration Complete!</b>\n\n\u0e01\u0e23\u0e38\u0e13\u0e32\u0e41\u0e08\u0e49\u0e07\u0e41\u0e2d\u0e14\u0e21\u0e34\u0e19\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e22\u0e37\u0e19\u0e22\u0e31\u0e19\u0e01\u0e32\u0e23\u0e25\u0e07\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13\u0e04\u0e23\u0e31\u0e1a\nPlease contact admin to confirm your registration.\n\n\u{1F464} @clubhouse72',
 };
 
+function formatClubGG(id) {
+  var digits = id.replace(/[^0-9]/g, '');
+  if (digits.length === 8) {
+    return digits.slice(0,4) + '-' + digits.slice(4);
+  }
+  return id;
+}
+
 function formatPhone(phone) {
   var digits = phone.replace(/\D/g, '');
   if (digits.length === 10) {
@@ -134,6 +142,7 @@ async function handleUpdate(update) {
         // Format phone and bank account
         s.phone = formatPhone(s.phone);
         s.bank = formatBankAccount(s.bank);
+        s.clubgg_id = formatClubGG(s.clubgg_id);
 
         await saveSheet({
           name: s.name,
