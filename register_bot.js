@@ -32,6 +32,45 @@ const MSG = {
   done: '\u2705 <b>\u0e25\u0e07\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08\u0e41\u0e25\u0e49\u0e27! / Registration Complete!</b>\n\n\u0e01\u0e23\u0e38\u0e13\u0e32\u0e41\u0e08\u0e49\u0e07\u0e41\u0e2d\u0e14\u0e21\u0e34\u0e19\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e22\u0e37\u0e19\u0e22\u0e31\u0e19\u0e01\u0e32\u0e23\u0e25\u0e07\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13\u0e04\u0e23\u0e31\u0e1a\nPlease contact admin to confirm your registration.\n\n\u{1F464} @clubhouse72',
 };
 
+function formatPhone(phone) {
+  var digits = phone.replace(/\D/g, '');
+  if (digits.length === 10) {
+    return digits.slice(0,3) + '-' + digits.slice(3,6) + '-' + digits.slice(6);
+  }
+  return phone;
+}
+
+function formatBankAccount(input) {
+  // Extract bank name and digits separately
+  var parts = input.trim().split(' ');
+  var bankName = '';
+  var digits = '';
+  for (var i = 0; i < parts.length; i++) {
+    var d = parts[i].replace(/[^0-9]/g, '');
+    if (d.length > 3) {
+      digits += d;
+    } else if (parts[i].replace(/[^0-9]/g, '').length === 0) {
+      bankName += (bankName ? ' ' : '') + parts[i];
+    } else {
+      digits += d;
+    }
+  }
+  var len = digits.length;
+  var formatted = '';
+  if (len === 10) {
+    formatted = digits.slice(0,3) + '-' + digits.slice(3,4) + '-' + digits.slice(4,9) + '-' + digits.slice(9);
+  } else if (len === 12) {
+    formatted = digits.slice(0,3) + '-' + digits.slice(3,10) + '-' + digits.slice(10);
+  } else if (len === 11) {
+    formatted = digits.slice(0,3) + '-' + digits.slice(3,6) + '-' + digits.slice(6,10) + '-' + digits.slice(10);
+  } else if (len === 15) {
+    formatted = digits.slice(0,3) + '-' + digits.slice(3,8) + '-' + digits.slice(8,13) + '-' + digits.slice(13);
+  } else {
+    return input;
+  }
+  return bankName ? bankName + ' ' + formatted : formatted;
+}
+
 async function send(chatId, text, keyboard) {
   const payload = { chat_id: chatId, text: text, parse_mode: 'HTML' };
   if (keyboard) payload.reply_markup = { inline_keyboard: keyboard };
@@ -91,6 +130,10 @@ async function handleUpdate(update) {
 
       } else if (s.step === 'clubgg') {
         s.clubgg_id = text;
+
+        // Format phone and bank account
+        s.phone = formatPhone(s.phone);
+        s.bank = formatBankAccount(s.bank);
 
         await saveSheet({
           name: s.name,
