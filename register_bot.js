@@ -11,6 +11,16 @@ const NOTIFY_API = 'https://api.telegram.org/bot' + BOT_TOKEN;
 let offset = 0;
 const state = {};
 
+// Clear expired states every 10 minutes (30 min timeout)
+setInterval(function() {
+  const now = Date.now();
+  for (var userId in state) {
+    if (state[userId] && state[userId].timestamp && now - state[userId].timestamp > 10 * 60 * 1000) {
+      delete state[userId];
+    }
+  }
+}, 10 * 60 * 1000);
+
 const MSG = {
   welcome: '\u{1F0CF} <b>\u0e22\u0e34\u0e19\u0e14\u0e35\u0e15\u0e49\u0e2d\u0e19\u0e23\u0e31\u0e1a\u0e2a\u0e39\u0e48 72Clubhouse!\nWelcome to 72Clubhouse!</b>\n\n\u0e01\u0e14\u0e1b\u0e38\u0e48\u0e21\u0e14\u0e49\u0e32\u0e19\u0e25\u0e48\u0e32\u0e07\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e25\u0e07\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19\u0e44\u0e14\u0e49\u0e40\u0e25\u0e22\u0e04\u0e23\u0e31\u0e1a\nClick the button below to register:',
   btn_register: '\u0e25\u0e07\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19 / Register Now',
@@ -125,7 +135,7 @@ async function handleUpdate(update) {
     }).catch(function(){});
 
     if (data === 'register') {
-      state[userId] = { step: 'name' };
+      state[userId] = { step: 'name', timestamp: Date.now() };
       await send(chatId, MSG.step1, null);
 
     } else if (data === 'back') {
