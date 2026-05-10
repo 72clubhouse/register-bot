@@ -109,6 +109,7 @@ async function handleUpdate(update) {
     }
 
     if (text === '/start') {
+      delete state[userId];
       await send(chatId, MSG.welcome,
         [[{ text: MSG.btn_register, callback_data: 'register' }]]
       );
@@ -128,6 +129,7 @@ async function handleUpdate(update) {
       await send(chatId, MSG.step1, null);
 
     } else if (data === 'back') {
+      delete state[userId];
       await send(chatId, MSG.welcome,
         [[{ text: MSG.btn_register, callback_data: 'register' }]]
       );
