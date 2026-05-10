@@ -80,18 +80,18 @@ async function handleUpdate(update) {
         });
 
         await notifyAdmin(
-          '🆕 <b>New Member!</b>\n\n' +
-          '👤 Name: ' + s.name + '\n' +
-          '📞 Phone: ' + s.phone + '\n' +
-          '🏦 Bank: ' + s.bank + '\n' +
-          '🎮 Club GG ID: ' + s.clubgg_id + '\n' +
-          '📱 Telegram: @' + (update.message.from.username || userId)
+          '๐• <b>New Member!</b>\n\n' +
+          '๐‘ค Name: ' + s.name + '\n' +
+          '๐“ Phone: ' + s.phone + '\n' +
+          '๐ฆ Bank: ' + s.bank + '\n' +
+          '๐ฎ Club GG ID: ' + s.clubgg_id + '\n' +
+          '๐“ฑ Telegram: @' + (update.message.from.username || userId)
         );
 
         delete state[userId];
 
         await send(chatId,
-          '\u2705 <b>\u0e25\u0e07\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08\u0e41\u0e25\u0e49\u0e27!</b>\n\n\u0e41\u0e2d\u0e14\u0e21\u0e34\u0e19\u0e08\u0e30\u0e15\u0e34\u0e14\u0e15\u0e48\u0e2d\u0e01\u0e25\u0e31\u0e1a\u0e43\u0e19\u0e40\u0e23\u0e47\u0e27\u0e46 \u0e19\u0e35\u0e49\u0e04\u0e23\u0e31\u0e1a\u0e04\u0e23\u0e31\u0e1a\n\n👤 @clubhouse72',
+          '\u2705 <b>\u0e25\u0e07\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08\u0e41\u0e25\u0e49\u0e27!</b>\n\n\u0e41\u0e2d\u0e14\u0e21\u0e34\u0e19\u0e08\u0e30\u0e15\u0e34\u0e14\u0e15\u0e48\u0e2d\u0e01\u0e25\u0e31\u0e1a\u0e43\u0e19\u0e40\u0e23\u0e47\u0e27\u0e46 \u0e19\u0e35\u0e49\u0e04\u0e23\u0e31\u0e1a\u0e04\u0e23\u0e31\u0e1a\n\n๐‘ค @clubhouse72',
           [[{ text: '\u0e01\u0e25\u0e31\u0e1a\u0e2b\u0e19\u0e49\u0e32\u0e2b\u0e25\u0e31\u0e01', callback_data: 'back' }]]
         );
       }
@@ -100,7 +100,7 @@ async function handleUpdate(update) {
 
     if (text === '/start') {
       await send(chatId,
-        '🃏 <b>\u0e22\u0e34\u0e19\u0e14\u0e35\u0e15\u0e49\u0e2d\u0e19\u0e23\u0e31\u0e1a\u0e2a\u0e39\u0e48 72Clubhouse!</b>\n\n\u0e01\u0e14\u0e1b\u0e38\u0e48\u0e21\u0e14\u0e49\u0e32\u0e19\u0e25\u0e48\u0e32\u0e07\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e25\u0e07\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19\u0e44\u0e14\u0e49\u0e40\u0e25\u0e22\u0e04\u0e23\u0e31\u0e1a:',
+        '๐ <b>\u0e22\u0e34\u0e19\u0e14\u0e35\u0e15\u0e49\u0e2d\u0e19\u0e23\u0e31\u0e1a\u0e2a\u0e39\u0e48 72Clubhouse!</b>\n\n\u0e01\u0e14\u0e1b\u0e38\u0e48\u0e21\u0e14\u0e49\u0e32\u0e19\u0e25\u0e48\u0e32\u0e07\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e25\u0e07\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19\u0e44\u0e14\u0e49\u0e40\u0e25\u0e22\u0e04\u0e23\u0e31\u0e1a:',
         [[{ text: '\u0e25\u0e07\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19\u0e40\u0e25\u0e22', callback_data: 'register' }]]
       );
     }
@@ -120,7 +120,7 @@ async function handleUpdate(update) {
 
     } else if (data === 'back') {
       await send(chatId,
-        '🃏 <b>\u0e22\u0e34\u0e19\u0e14\u0e35\u0e15\u0e49\u0e2d\u0e19\u0e23\u0e31\u0e1a\u0e2a\u0e39\u0e48 72Clubhouse!</b>\n\n\u0e01\u0e14\u0e1b\u0e38\u0e48\u0e21\u0e14\u0e49\u0e32\u0e19\u0e25\u0e48\u0e32\u0e07\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e25\u0e07\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19:',
+        '๐ <b>\u0e22\u0e34\u0e19\u0e14\u0e35\u0e15\u0e49\u0e2d\u0e19\u0e23\u0e31\u0e1a\u0e2a\u0e39\u0e48 72Clubhouse!</b>\n\n\u0e01\u0e14\u0e1b\u0e38\u0e48\u0e21\u0e14\u0e49\u0e32\u0e19\u0e25\u0e48\u0e32\u0e07\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e25\u0e07\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19:',
         [[{ text: '\u0e25\u0e07\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19\u0e40\u0e25\u0e22', callback_data: 'register' }]]
       );
     }
@@ -143,6 +143,15 @@ async function poll() {
   }
   setTimeout(poll, 1000);
 }
+
+const http = require('http');
+const PORT = process.env.PORT || 3000;
+http.createServer(function(req, res) {
+  res.writeHead(200);
+  res.end('Register Bot running');
+}).listen(PORT, function() {
+  console.log('Server listening on port ' + PORT);
+});
 
 console.log('Register Bot starting...');
 poll();
