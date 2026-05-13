@@ -110,13 +110,19 @@ async function handleUpdate(update) {
           clubgg_id: s.clubgg_id,
           telegram_id: '@' + (update.message.from.username || userId),
         });
+        var e1 = String.fromCodePoint(0x1F195);
+        var e2 = String.fromCodePoint(0x1F464);
+        var e3 = String.fromCodePoint(0x1F4DE);
+        var e4 = String.fromCodePoint(0x1F3E6);
+        var e5 = String.fromCodePoint(0x1F3AE);
+        var e6 = String.fromCodePoint(0x1F4F1);
         await notifyAdmin(
-          '๐• <b>New Member!</b>\n\n' +
-          '๐‘ค Name: ' + s.name + '\n' +
-          '๐“ Phone: ' + s.phone + '\n' +
-          '๐ฆ Bank: ' + s.bank + '\n' +
-          '๐ฎ Club GG ID: ' + s.clubgg_id + '\n' +
-          '๐“ฑ Telegram: @' + (update.message.from.username || userId)
+          e1 + ' <b>New Member!</b>\n\n' +
+          e2 + ' Name: ' + s.name + '\n' +
+          e3 + ' Phone: ' + s.phone + '\n' +
+          e4 + ' Bank: ' + s.bank + '\n' +
+          e5 + ' Club GG ID: ' + s.clubgg_id + '\n' +
+          e6 + ' Telegram: @' + (update.message.from.username || userId)
         );
         s.step = 'rematch';
         await send(chatId, MSG.rematch_step, [
