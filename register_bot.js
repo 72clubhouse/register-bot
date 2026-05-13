@@ -108,7 +108,7 @@ async function handleUpdate(update) {
         await saveSheet({
           name: s.name, phone: s.phone, bank: s.bank,
           clubgg_id: s.clubgg_id,
-          telegram_id: '@' + (update.message.from.username || userId),
+          telegram_id: String(userId),
         });
         var e1 = String.fromCodePoint(0x1F195);
         var e2 = String.fromCodePoint(0x1F464);
@@ -122,7 +122,7 @@ async function handleUpdate(update) {
           e3 + ' Phone: ' + s.phone + '\n' +
           e4 + ' Bank: ' + s.bank + '\n' +
           e5 + ' Club GG ID: ' + s.clubgg_id + '\n' +
-          e6 + ' Telegram: @' + (update.message.from.username || userId)
+          e6 + ' Telegram ID: ' + String(userId)
         );
         s.step = 'rematch';
         await send(chatId, MSG.rematch_step, [
