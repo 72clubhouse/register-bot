@@ -29,6 +29,7 @@ const MSG = {
   step2: '\u0e02\u0e31\u0e49\u0e19\u0e15\u0e2d\u0e19\u0e17\u0e35\u0e48 2/4 | Step 2/4\n\n\u0e01\u0e23\u0e38\u0e13\u0e32\u0e01\u0e23\u0e2d\u0e01 <b>\u0e40\u0e1a\u0e2d\u0e23\u0e4c\u0e42\u0e17\u0e23\u0e28\u0e31\u0e1e\u0e17\u0e4c</b>\nPlease enter your <b>Phone Number</b>:',
   step3: '\u0e02\u0e31\u0e49\u0e19\u0e15\u0e2d\u0e19\u0e17\u0e35\u0e48 3/4 | Step 3/4\n\n\u0e01\u0e23\u0e38\u0e13\u0e32\u0e01\u0e23\u0e2d\u0e01 <b>\u0e0a\u0e37\u0e48\u0e2d\u0e18\u0e19\u0e32\u0e04\u0e32\u0e23 \u0e41\u0e25\u0e30\u0e40\u0e25\u0e02\u0e1a\u0e31\u0e0d\u0e0a\u0e35</b>\nPlease enter your <b>Bank Name and Account Number</b>:\n\u0e15\u0e31\u0e27\u0e2d\u0e22\u0e48\u0e32\u0e07 / Example: Kasikorn 123-4-56789-0',
   step4: '\u0e02\u0e31\u0e49\u0e19\u0e15\u0e2d\u0e19\u0e17\u0e35\u0e48 4/4 | Step 4/4\n\n\u0e01\u0e23\u0e38\u0e13\u0e32\u0e01\u0e23\u0e2d\u0e01 <b>Club GG ID</b> \u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13\nPlease enter your <b>Club GG ID</b>:',
+  rematch_step: '\u{1F3AE} <b>\u0e02\u0e31\u0e49\u0e19\u0e15\u0e2d\u0e19\u0e2a\u0e38\u0e14\u0e17\u0e49\u0e32\u0e22! / Last Step!</b>\n\n\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e43\u0e2b\u0e49\u0e23\u0e30\u0e1a\u0e1a\u0e2a\u0e32\u0e21\u0e32\u0e23\u0e16\u0e15\u0e34\u0e14\u0e15\u0e48\u0e2d\u0e04\u0e38\u0e13\u0e44\u0e14\u0e49 \u0e01\u0e23\u0e38\u0e13\u0e32\u0e01\u0e14\u0e1b\u0e38\u0e48\u0e21\u0e14\u0e49\u0e32\u0e19\u0e25\u0e48\u0e32\u0e07\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e40\u0e1b\u0e34\u0e14\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19 <b>Rematch Bot</b> \u0e04\u0e23\u0e31\u0e1a\nTo allow our system to contact you, please click the button below to activate the <b>Rematch Bot</b>.',
   done: '\u2705 <b>\u0e25\u0e07\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08\u0e41\u0e25\u0e49\u0e27! / Registration Complete!</b>\n\n\u0e01\u0e23\u0e38\u0e13\u0e32\u0e41\u0e08\u0e49\u0e07\u0e41\u0e2d\u0e14\u0e21\u0e34\u0e19\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e22\u0e37\u0e19\u0e22\u0e31\u0e19\u0e01\u0e32\u0e23\u0e25\u0e07\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13\u0e04\u0e23\u0e31\u0e1a\nPlease contact admin to confirm your registration.\n\n\u{1F464} @clubhouse72',
 };
 
@@ -163,9 +164,10 @@ async function handleUpdate(update) {
 
         delete state[userId];
 
-        await send(chatId, MSG.done,
-          [[{ text: MSG.btn_back, callback_data: 'back' }]]
-        );
+        await send(chatId, MSG.done, [
+          [{ text: 'เน€เธเธดเธ”เนเธเนเธเธฒเธ Rematch Bot / Enable Rematch', url: 'https://t.me/clubhouse72_rematch_bot?start=register' }],
+          [{ text: MSG.btn_back, callback_data: 'back' }]
+        ]);
       }
       return;
     }
@@ -186,7 +188,15 @@ async function handleUpdate(update) {
       callback_query_id: update.callback_query.id
     }).catch(function(){});
 
-    if (data === 'register') {
+    if (data === 'rematch_done') {
+      if (state[userId] && state[userId].step === 'rematch') {
+        delete state[userId];
+      }
+      await send(chatId, MSG.done,
+        [[{ text: MSG.btn_back, callback_data: 'back' }]]
+      );
+
+    } else if (data === 'register') {
       state[userId] = { step: 'name', timestamp: Date.now() };
       await send(chatId, MSG.step1, null);
 
